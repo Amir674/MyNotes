@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    android:id="@+id/nav_graph"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/fragmentListOfNotes">
+    <!--app:startDestination="@id/myFragment" - это точка входа в наше приложение-->
+
+    <fragment
+        android:id="@+id/fragmentListOfNotes"
+        android:name="ru.atmaratovich.mynotes.ListOfNotes"
+        android:label="Первый экран"
+        tools:layout="@layout/fragment_list_of_notes">
+        <!--    tools:layout="@layout/my_fragment" - Нужен для удобства чтоб можно было видеть то что в коде визуально    -->
+
+
+        <!--    Передаем, например, строковый параметр message. Сюда будет приходить аргумент из  Second Fragment-->
+        <argument
+            android:name="message"
+            android:defaultValue="Привет из ListOfNotes"
+            app:argType="string" />
+
+        <!--     action - Он нужен чтобы связать MyFragment и SecondFragment благодоря ему мы будем переходить из одного в другой-->
+        <action
+            android:id="@+id/action_fragmentListOfNotes_to_createNotes"
+            app:destination="@+id/createNotes">
+            <!--destination - Место назначения-->
+
+            <!--        Можно переопределить аргумент для второго фрагмента-->
+            <!--        Здесь мы передаем какойто аргумент из 1 фрагмента в 2-->
+            <argument
+                android:name="reply"
+                app:argType="string" />
+            <!--            reply - Отвечать-->
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/createNotes"
+        android:name="ru.atmaratovich.mynotes.CreateNotes"
+        android:label="Второй экран"
+        tools:layout="@layout/create_notes_fragment" >
+
+        <!--     Сюда будет приходить тот аргумент из MyFragment на 21 строке-->
+        <argument
+            android:name="reply"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_createNotes_to_fragmentListOfNotes"
+            app:destination="@+id/fragmentListOfNotes">
+            <!--            destination - Место назначения-->
+
+
+            <!--        Возврощаем тот же или новый message-->
+            <argument
+                android:name="message"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+</navigation>
